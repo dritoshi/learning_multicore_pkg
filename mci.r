@@ -1,6 +1,6 @@
 library(multicore)
 
-mci.for <- function(x) {
+mci.for <- function(x, u) {
   x.num <- length(x)
   cdf   <- numeric(x.num) 
   for ( i in 1:x.num ) {
@@ -10,7 +10,7 @@ mci.for <- function(x) {
   return(cdf)
 }
 
-mci.sapply.list <- function(x) {
+mci.sapply.list <- function(x, u) {
   sapply(x, 
     function(x) {
       g <- x * exp( -(u * x)^2 / 2)
@@ -19,7 +19,7 @@ mci.sapply.list <- function(x) {
   )
 }
 
-mci.sapply <- function(x) {
+mci.sapply <- function(x, u) {
   unlist(sapply(x, 
     function(x) {
       g <- x * exp( -(u * x)^2 / 2)
@@ -28,7 +28,7 @@ mci.sapply <- function(x) {
   ))
 }
 
-mci.mclapply <- function(x) {
+mci.mclapply <- function(x, u) {
   mclapply(x, 
     function(x) {
       g <- x * exp( -(u * x)^2 / 2)
