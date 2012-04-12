@@ -8,7 +8,7 @@ x.num <- 100
 x <- seq(0.1, 2.5, length = x.num)
 
 set.seed(1234)
-m <- 100000
+m <- 1000
 u <- runif(m)
 
 cdf <- numeric(x.num)
@@ -23,4 +23,12 @@ test_that("mci.sapply return identical vector of mci.for", {
 
 test_that("mci.mclapply return identical vector of mci.for", {
   expect_identical(mci.for(x, u), unlist(mci.mclapply(x, u)))
+})
+
+test_that("mci.llply return identical vector of mci.for", {
+  expect_identical(mci.for(x, u), unlist(mci.llply(x, u)))
+})
+
+test_that("mci.llply with parallel return identical vector of mci.for", {
+  expect_identical(mci.for(x, u), unlist(mci.llply(x, u, .parallel = TRUE)))
 })

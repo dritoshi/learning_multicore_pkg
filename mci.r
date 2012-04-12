@@ -1,4 +1,11 @@
 library(multicore)
+library(plyr)
+library(doMC)
+#library(doSNOW)
+
+n <- 2
+# registerDoSNOW(makeCluster(n, type = "SOCK"))
+registerDoMC(n)
 
 mci.for <- function(x, u) {
   x.num <- length(x)
@@ -34,5 +41,14 @@ mci.mclapply <- function(x, u) {
       g <- x * exp( -(u * x)^2 / 2)
       mean(g) / sqrt(2 * pi) + 0.5
     }
+  )
+}
+
+mci.llply <- function(x, u, ...) {
+  llply(x, 
+    function(x) {
+      g <- x * exp( -(u * x)^2 / 2)
+      mean(g) / sqrt(2 * pi) + 0.5
+    }, ...
   )
 }

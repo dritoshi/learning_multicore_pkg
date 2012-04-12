@@ -13,7 +13,11 @@ mci.profiles <- cbind(
   system.time(mci.for(x, u)),
   system.time(mci.sapply.list(x, u)),
   system.time(mci.sapply(x, u)),
-  system.time(mci.mclapply(x, u))
+  system.time(mci.mclapply(x, u)),
+  system.time(mci.llply(x, u)),
+  system.time(mci.llply(x, u, .parallel = TRUE))
 )
-colnames(mci.profiles) <- c("for", "sapply", "sapply.unlist", "mclappy")
+colnames(mci.profiles) <- c(
+  "for", "sapply", "sapply.unlist",
+  "mclappy", "llply", "llply.doMC")
 print(mci.profiles)
